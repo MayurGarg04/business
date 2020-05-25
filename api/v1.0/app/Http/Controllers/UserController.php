@@ -26,8 +26,15 @@ class UserController extends Controller
 
     public function index()
     {   
-        //$users = MasterUser::all();
-        return response()->json(['users' =>  MasterUser::where('isdelete', '=', 0)->simplePaginate(2), 'status' => true, 'code' => 200], 200);
+        try {
+
+            $users = MasterUser::where('isdelete', '=', 0)->simplePaginate(10);
+            return response()->json(['users' => $users, 'status' => 'success', 'code' => 201], 201);
+
+        } catch (\Exception $e) {
+
+            return response()->json(['message' => 'Users not found!','status' => false, 'HTTP_Status' => 404], 404);
+        }
         
     }
 
@@ -59,11 +66,11 @@ class UserController extends Controller
     {   
         $this->validate($request, [
             'name' => 'required|string',
-            'email' => 'required|email|unique:master_user',
-            'dob' => 'required|before:18 years ago',
+            'email' => 'required|email',
+            'dob' => 'required|date|before:18 years ago',
             'city' => 'required',
             'amount' => 'required',
-            'phone' => 'required:max:10',
+            'phone' => 'required|numeric|phone_number|size:11',
         ]);
 
         try {
@@ -71,7 +78,7 @@ class UserController extends Controller
             $user = MasterUser::find($id);
             $user->name = $request->input('name');
             $user->email = $request->input('email');
-            $user->dob = $request->input('dob');
+            $user->dob = date('Y-m-d', strtotime($request->input('dob')));
             $user->city = $request->input('city');
             $user->amount = $request->input('amount');
             $user->phone = $request->input('phone');
@@ -94,10 +101,7 @@ class UserController extends Controller
         $user = MasterUser::find($id);
         $user->isdelete = 1;
         $user->save();
-        /*  
-            $user = MasterUser::where('app_id', $app_id)->first();
-            MasterUser::findOrFail($id)->delete();
-        */
+        
         return response()->json(['message' => 'Deleted succesfully', 'status' => true, 'code' => 204], 204);
         
     }
@@ -111,12 +115,12 @@ class UserController extends Controller
     {
         try {
 
-            $users = MasterUser::where('isdelete', '=', 0)->where('app_id', '=', $request->headers->get('appid'))->simplePaginate(1);
-            return response()->json(['users' => $users, 'status' => true, 'code' => 201], 201);
+            $users = MasterUser::where('isdelete', '=', 0)->where('app_id', '=', $request->headers->get('appid'))->simplePaginate(10);
+            return response()->json(['users' => $users, 'status' => 'success', 'code' => 201], 201);
 
         } catch (\Exception $e) {
 
-            return response()->json(['message' => 'Users not found!','status' => false, 'code' => 404], 404);
+            return response()->json(['message' => 'Users not found!','status' => false, 'HTTP_Status' => 404], 404);
         }
     }
 
