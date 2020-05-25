@@ -1,0 +1,213 @@
+Hello
+header => appid
+authoriation => access token
+status (confirmation) => 0 =>un 1=>con
+delete (0) not deleted, 1 => deleted 
+
+Login admin user => email,password
+
+Register normal user => app_id 
+
+Authenticated user all operations => access_token,app_id
+
+
+==================== Register ====================
+
+Endpoint => http://localhost:8000/api/register
+
+Method => POST
+
+Body (JSON) =>
+
+	{
+		"name":"Radha",
+		"email":"radha@gmail.com",
+		"amount":"5000",
+		"city":"Dehradhun",
+		"phone":"8866174243",
+		"dob":"1945-05-06"
+
+	}
+
+Headers => 
+
+	app_id => your_app_id
+
+	
+
+
+==================== Login ====================
+
+Endpoint => http://localhost:8000/api/login
+
+Method => POST
+
+Body (JSON) =>
+
+	{
+		"email":"mayur@gmail.com",
+		"password":"admin@123"
+	}
+
+On Success => 
+	
+	{
+	    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvYXBpXC9sb2dpbiIsImlhdCI6MTU5MDMyNjI5MywiZXhwIjoxNTkwMzI5ODkzLCJuYmYiOjE1OTAzMjYyOTMsImp0aSI6InZsUGdPaDNWM2FYVE1EcDciLCJzdWIiOjEsInBydiI6Ijg3ZTBhZjFlZjlmZDE1ODEyZmRlYzk3MTUzYTE0ZTBiMDQ3NTQ2YWEifQ.op38FD_PnvaHG1mOatduVE6oLPHUctUX-U4Bu35S_G4",
+	    "token_type": "bearer",
+	    "expires_in": 3600,
+	    "app_id": "paytm"
+	}	
+
+
+==================== Users ====================
+
+1) All users [with pagination limit 10]:
+
+Endpoint => http://localhost:8000/api/users
+
+Method => GET
+
+Headers => 
+
+	Authorization => Bearer access_token
+	app_id => your_app_id
+
+====> 'status' => true, 'code' => 200
+
+
+2) Single user:
+
+Endpoint => http://localhost:8000/api/users/3
+
+Method => GET
+
+Headers => 
+
+	Authorization => Bearer access_token
+	app_id => your_app_id
+
+3) Update user:
+
+Endpoint => http://localhost:8000/api/users/3
+
+Method => PUT
+
+Headers => 
+
+	Authorization => Bearer access_token
+	app_id => your_app_id
+
+Body (JSON)=> 
+
+	{
+		"name":"Radha",
+		"email":"radha@gmail.com",
+		"amount":"5000",
+		"city":"Dehradhun",
+		"phone":"8866174243",
+		"dob":"1945-05-06"
+
+	}
+======>'message' => 'User updated succesfully', 'status' => true, 'code' => 201
+
+
+4) Update status:
+
+Endpoint => http://localhost:8000/api/users/3
+
+Method => PATCH
+
+Headers => 
+
+	Authorization => Bearer access_token
+	app_id => your_app_id
+
+Body (JSON)=> 
+
+	{"status":"1"}	
+
+===>'message' => 'Status updated succesfully', 'status' => true, 'code' => 204
+
+5) Delete single user:
+
+Endpoint => http://localhost:8000/api/users/3
+
+Method => DELETE
+
+Headers => 
+
+	Authorization => Bearer access_token
+	app_id => your_app_id
+
+==> 'message' => 'Deleted succesfully', 'status' => true, 'code' => 204
+
+
+5)Users by app_id [Users with pagination]
+
+Endpoint => http://localhost:8000/api/usersbyappid
+
+Method => GET
+
+Body (JSON) =>  {"app_id":"paytm"}
+
+Headers => 
+
+	Authorization => Bearer access_token
+
+===> 'users' => $users, 'status' => true, 'code' => 201
+
+======================================Errors========================
+
+1) If app id is missing
+	
+	{
+	    "message": "App id is missing!",
+	    "status": false,
+	    "code": 401
+	}
+
+2) If app id is invalid
+
+	{
+	    "message": "App id is not invalid!",
+	    "status": false,
+	    "code": 401
+	}
+
+3) Invalid credentials in login
+
+	{
+	    "message": "Unauthorized user!",
+	    "status": false,
+	    "code": 401
+	}
+
+4) Registration failed
+
+	{
+	    "message": "User Registration Failed!	",
+	    "status": false,
+	    "code": 401
+	}
+
+5)  When find user by id
+{
+	'message' : 'User not found!',
+	'status':false, 
+	'code' : 404
+}	
+
+6)  When update user error
+{
+	'message' : '',
+	'status':false, 
+	'code' : 404
+}
+
+7)  When Users by app_id not found
+{
+	'message' : 'Users not found!',
+	'status':false, 
+	'code' : 404
+}
+

@@ -1,0 +1,17 @@
+==============================Requirement to deploy API===================================
+
+	Datbase => Mysql
+
+	Dependency manager => composer
+
+	Server requirements
+
+        PHP >= 7.2
+
+    	OpenSSL PHP Extension
+    	PDO PHP Extension
+    	Mbstring PHP Extension
+
+    API testing tool
+
+    	Postman	
