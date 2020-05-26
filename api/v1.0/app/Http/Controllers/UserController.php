@@ -26,15 +26,8 @@ class UserController extends Controller
 
     public function index()
     {   
-        try {
-
-            $users = MasterUser::where('isdelete', '=', 0)->simplePaginate(10);
-            return response()->json(['users' => $users, 'status' => 'success', 'code' => 201], 201);
-
-        } catch (\Exception $e) {
-
-            return response()->json(['message' => 'Users not found!','status' => false, 'HTTP_Status' => 404], 404);
-        }
+        //$users = MasterUser::all();
+        return response()->json(['users' =>  MasterUser::where('isdelete', '=', 0)->simplePaginate(20), 'status' => true, 'code' => 200], 200);
         
     }
 
@@ -62,23 +55,38 @@ class UserController extends Controller
      * @return Response
      */
 
-    public function update($id, Request $request)
+    public function update(Request $request)
     {   
+        //validate incoming request 
         $this->validate($request, [
             'name' => 'required|string',
             'email' => 'required|email',
             'dob' => 'required|date|before:18 years ago',
             'city' => 'required',
-            'amount' => 'required',
-            'phone' => 'required|numeric|phone_number|size:11',
-        ]);
+            'amount' => 'required|numeric',
+            'phone' => 'required|numeric',
+          ],
+          [
+            'name.required' => ' The name field is required.',
+            'name.min' => ' The name must be at least 5 characters.',
+            'name.max' => ' The name may not be greater than 35 characters.',
+            'email.required' => ' The email field is required.',
+            'dob.required' => ' The date of birth field is required.',
+            'dob.date' => ' The date of birth is not valid.',
+            'dob.before' => ' You must be at least 18 years old.',
+            'amount.required' => ' The amount field is required.',
+            'amount.numeric' => ' The amount field can not be string.',
+            'phone.required' => ' The phone field is required.',
+            'phone.numeric' => ' The phone field can not be string.',
+          ]
+        );
 
         try {
 
-            $user = MasterUser::find($id);
+            $user = MasterUser::find($request->get('id'));
             $user->name = $request->input('name');
             $user->email = $request->input('email');
-            $user->dob = date('Y-m-d', strtotime($request->input('dob')));
+            $user->dob = $request->input('dob');
             $user->city = $request->input('city');
             $user->amount = $request->input('amount');
             $user->phone = $request->input('phone');
@@ -101,26 +109,26 @@ class UserController extends Controller
         $user = MasterUser::find($id);
         $user->isdelete = 1;
         $user->save();
-        
+
         return response()->json(['message' => 'Deleted succesfully', 'status' => true, 'code' => 204], 204);
         
     }
 
     
     /*
-        Get all users by app_id
+        Get all users by appid
     */
 
     public function getUsersByAppId(Request $request)
     {
         try {
 
-            $users = MasterUser::where('isdelete', '=', 0)->where('app_id', '=', $request->headers->get('appid'))->simplePaginate(10);
-            return response()->json(['users' => $users, 'status' => 'success', 'code' => 201], 201);
+            $users = MasterUser::where('isdelete', '=', 0)->where('app_id', '=', $request->headers->get('appid'))->simplePaginate(1);
+            return response()->json(['users' => $users, 'status' => true, 'code' => 201], 201);
 
         } catch (\Exception $e) {
 
-            return response()->json(['message' => 'Users not found!','status' => false, 'HTTP_Status' => 404], 404);
+            return response()->json(['message' => 'Users not found!','status' => false, 'code' => 404], 404);
         }
     }
 
@@ -136,4 +144,23 @@ class UserController extends Controller
 
         return response()->json(['message' => 'Status updated succesfully', 'status' => true, 'code' => 200], 200);
     }
+
+    /*
+        Patch =  update a status more than one
+    */
+    public function updateDonor(Request $request)
+    {
+    //    \DB::table('master_user')->whereIn('id', $request->get('ids'))->update(['status' => 1]);
+        MasterUser::whereIn('id', $request->get('ids'))->update(['status' => 1]);
+        
+        return response()->json(['message' => 'Donor updated succesfully', 'status' => true, 'code' => 200], 200);
+    }
+
+    public function deleteUser(Request $request)
+    {
+        MasterUser::where('id', $request->get('id'))->update(['isdelete' => 1]);
+        
+        return response()->json(['message' => 'Donor deleted succesfully', 'status' => true, 'code' => 200], 200);
+    }
+
 }

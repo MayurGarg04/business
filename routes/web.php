@@ -13,25 +13,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('register')->with('posts', 5);
+});*/
+Route::get('/', function () {
+    return view('register');
 });
 
-/*Route::get('/login', function () {
-    return view('login');
-});*/
-
-
-/*
-Route::post('/register', function () {
-	echo "<pre>";print_r($request->all());
-    //return view('dashboard')->with('posts', 5);
-})->name('register');*/
+Route::get('login','UserController@showLogin')->name('loginget');   
+Route::get('register','UserController@showRegister');   
 
 Route::post('/register','UserController@register')->name('register');   
-Route::post('/login','UserController@login')->name('login');   
+Route::post('login','UserController@login')->name('login');   
 
-Route::get('/users', function () {
-    return view('users');
+Route::group(['middleware' => ['checksession']], function () {
+	
+	Route::get('/users', function () { return view('users');})->name('users');
+
+	Route::get('/getusers','UserController@getUsersByAppId');   
+	Route::get('/edituser','UserController@editUser');   
+	Route::post('/updateuser','UserController@updateUser');   
+	Route::post('/updatedonor','UserController@updateStatus');   
+	Route::post('/deleteuser','UserController@deleteUser');   
+
+    Route::get('/logout','UserController@logout')->name('logout');   
+
 });
-Route::post('/users','UserController@users')->name('users');   

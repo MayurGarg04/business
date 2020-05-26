@@ -23,17 +23,17 @@ class CheckApp
 
     public function handle($request, Closure $next)
     {	
-        // return response()->json(['user' => $request->headers->get('app_id')]);
+        // return response()->json(['user' => $request->headers->get('appid')]);
 
-        //return response()->json(['message' => $request->get('app_id')]);
+        //return response()->json(['message' => $request->get('appid')]);
 
-        $app_id = $request->headers->get('appid');
+        $appid = $request->headers->get('appid');
 
-        if( $app_id == null ) {
+        if( $appid == null ) {
         	return response()->json(['message' => 'App id is missing!','status' => false, 'code' => 401], 401);
         } else {
 
-        	$user = \App\User::where('app_id', $app_id)->first();
+        	$user = \App\User::where('app_id', $appid)->first();
 
 	    	if (!$user) {
 	            return response()->json(['message' => 'App id is not invalid!','status' => false, 'code' => 401], 401);

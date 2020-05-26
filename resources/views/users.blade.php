@@ -8,440 +8,64 @@
 <div class="container-fluid">
 	<div class="row">
           <div class="col-12">
+          	@if ($errors->has('message'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('message') }}</strong>
+                </span>
+            @endif
+
+            @if (session('message'))
+            	<div class="col-md-6 align-item-center">
+		            <div class="card card-success">
+		              <div class="card-header">
+		                <h3 class="card-title">{{ session('message') }}</h3>
+		                <div class="card-tools">
+		                  <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+		                  </button>
+		                </div>
+		              </div>
+		            </div>
+		          </div>
+            @endif
+
+            <div class="alert alert-warning" role="alert" id="foralert">
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			  <p id="wa"></p>
+			</div>
+
+			 <div class="alert alert-success" role="alert" id="foralert1">
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			  <p id="sa"></p>
+			</div>
+
+
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Users</h3>
+				<button class="btn btn-info donerbtn" style="float: right;">Update Doner</button>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
+              	<table id="example1" class="table table-bordered table-striped">
                   <thead>
 	                  <tr>
-	                    <th>Rendering engine</th>
-	                    <th>Browser</th>
-	                    <th>Platform(s)</th>
-	                    <th>Engine version</th>
-	                    <th>CSS grade</th>
+	                  	<th>All <input type="checkbox" class="" name="select-all" id="select-all" style="height: 20px;width: 20px;"></th>
+	                    <th>#</th>
+	                    <th>Name</th>
+	                    <th>Email</th>
+	                    <th>Phone</th>
+	                    <th>DOB</th>
+	                    <th>City</th>
+	                    <th>Amount</th>
+	                    <th>Status</th>
+	                    <th>Action</th>
 	                  </tr>
                   </thead>
                   <tbody>
-                 		<tr>
-                    <td>Trident</td>
-                    <td>Internet
-                      Explorer 4.0
-                    </td>
-                    <td>Win 95+</td>
-                    <td> 4</td>
-                    <td>X</td>
-                  </tr>
-                  <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                      Explorer 5.0
-                    </td>
-                    <td>Win 95+</td>
-                    <td>5</td>
-                    <td>C</td>
-                  </tr>
-                  <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                      Explorer 5.5
-                    </td>
-                    <td>Win 95+</td>
-                    <td>5.5</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Trident</td>
-                    <td>Internet
-                      Explorer 6
-                    </td>
-                    <td>Win 98+</td>
-                    <td>6</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Trident</td>
-                    <td>Internet Explorer 7</td>
-                    <td>Win XP SP2+</td>
-                    <td>7</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Trident</td>
-                    <td>AOL browser (AOL desktop)</td>
-                    <td>Win XP</td>
-                    <td>6</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Firefox 1.0</td>
-                    <td>Win 98+ / OSX.2+</td>
-                    <td>1.7</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Firefox 1.5</td>
-                    <td>Win 98+ / OSX.2+</td>
-                    <td>1.8</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Firefox 2.0</td>
-                    <td>Win 98+ / OSX.2+</td>
-                    <td>1.8</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Firefox 3.0</td>
-                    <td>Win 2k+ / OSX.3+</td>
-                    <td>1.9</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Camino 1.0</td>
-                    <td>OSX.2+</td>
-                    <td>1.8</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Camino 1.5</td>
-                    <td>OSX.3+</td>
-                    <td>1.8</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Netscape 7.2</td>
-                    <td>Win 95+ / Mac OS 8.6-9.2</td>
-                    <td>1.7</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Netscape Browser 8</td>
-                    <td>Win 98SE+</td>
-                    <td>1.7</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Netscape Navigator 9</td>
-                    <td>Win 98+ / OSX.2+</td>
-                    <td>1.8</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Mozilla 1.0</td>
-                    <td>Win 95+ / OSX.1+</td>
-                    <td>1</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Mozilla 1.1</td>
-                    <td>Win 95+ / OSX.1+</td>
-                    <td>1.1</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Mozilla 1.2</td>
-                    <td>Win 95+ / OSX.1+</td>
-                    <td>1.2</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Mozilla 1.3</td>
-                    <td>Win 95+ / OSX.1+</td>
-                    <td>1.3</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Mozilla 1.4</td>
-                    <td>Win 95+ / OSX.1+</td>
-                    <td>1.4</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Mozilla 1.5</td>
-                    <td>Win 95+ / OSX.1+</td>
-                    <td>1.5</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Mozilla 1.6</td>
-                    <td>Win 95+ / OSX.1+</td>
-                    <td>1.6</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Mozilla 1.7</td>
-                    <td>Win 98+ / OSX.1+</td>
-                    <td>1.7</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Mozilla 1.8</td>
-                    <td>Win 98+ / OSX.1+</td>
-                    <td>1.8</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Seamonkey 1.1</td>
-                    <td>Win 98+ / OSX.2+</td>
-                    <td>1.8</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Gecko</td>
-                    <td>Epiphany 2.20</td>
-                    <td>Gnome</td>
-                    <td>1.8</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Webkit</td>
-                    <td>Safari 1.2</td>
-                    <td>OSX.3</td>
-                    <td>125.5</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Webkit</td>
-                    <td>Safari 1.3</td>
-                    <td>OSX.3</td>
-                    <td>312.8</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Webkit</td>
-                    <td>Safari 2.0</td>
-                    <td>OSX.4+</td>
-                    <td>419.3</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Webkit</td>
-                    <td>Safari 3.0</td>
-                    <td>OSX.4+</td>
-                    <td>522.1</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Webkit</td>
-                    <td>OmniWeb 5.5</td>
-                    <td>OSX.4+</td>
-                    <td>420</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Webkit</td>
-                    <td>iPod Touch / iPhone</td>
-                    <td>iPod</td>
-                    <td>420.1</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Webkit</td>
-                    <td>S60</td>
-                    <td>S60</td>
-                    <td>413</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Presto</td>
-                    <td>Opera 7.0</td>
-                    <td>Win 95+ / OSX.1+</td>
-                    <td>-</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Presto</td>
-                    <td>Opera 7.5</td>
-                    <td>Win 95+ / OSX.2+</td>
-                    <td>-</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Presto</td>
-                    <td>Opera 8.0</td>
-                    <td>Win 95+ / OSX.2+</td>
-                    <td>-</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Presto</td>
-                    <td>Opera 8.5</td>
-                    <td>Win 95+ / OSX.2+</td>
-                    <td>-</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Presto</td>
-                    <td>Opera 9.0</td>
-                    <td>Win 95+ / OSX.3+</td>
-                    <td>-</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Presto</td>
-                    <td>Opera 9.2</td>
-                    <td>Win 88+ / OSX.3+</td>
-                    <td>-</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Presto</td>
-                    <td>Opera 9.5</td>
-                    <td>Win 88+ / OSX.3+</td>
-                    <td>-</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Presto</td>
-                    <td>Opera for Wii</td>
-                    <td>Wii</td>
-                    <td>-</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Presto</td>
-                    <td>Nokia N800</td>
-                    <td>N800</td>
-                    <td>-</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Presto</td>
-                    <td>Nintendo DS browser</td>
-                    <td>Nintendo DS</td>
-                    <td>8.5</td>
-                    <td>C/A<sup>1</sup></td>
-                  </tr>
-                  <tr>
-                    <td>KHTML</td>
-                    <td>Konqureror 3.1</td>
-                    <td>KDE 3.1</td>
-                    <td>3.1</td>
-                    <td>C</td>
-                  </tr>
-                  <tr>
-                    <td>KHTML</td>
-                    <td>Konqureror 3.3</td>
-                    <td>KDE 3.3</td>
-                    <td>3.3</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>KHTML</td>
-                    <td>Konqureror 3.5</td>
-                    <td>KDE 3.5</td>
-                    <td>3.5</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Tasman</td>
-                    <td>Internet Explorer 4.5</td>
-                    <td>Mac OS 8-9</td>
-                    <td>-</td>
-                    <td>X</td>
-                  </tr>
-                  <tr>
-                    <td>Tasman</td>
-                    <td>Internet Explorer 5.1</td>
-                    <td>Mac OS 7.6-9</td>
-                    <td>1</td>
-                    <td>C</td>
-                  </tr>
-                  <tr>
-                    <td>Tasman</td>
-                    <td>Internet Explorer 5.2</td>
-                    <td>Mac OS 8-X</td>
-                    <td>1</td>
-                    <td>C</td>
-                  </tr>
-                  <tr>
-                    <td>Misc</td>
-                    <td>NetFront 3.1</td>
-                    <td>Embedded devices</td>
-                    <td>-</td>
-                    <td>C</td>
-                  </tr>
-                  <tr>
-                    <td>Misc</td>
-                    <td>NetFront 3.4</td>
-                    <td>Embedded devices</td>
-                    <td>-</td>
-                    <td>A</td>
-                  </tr>
-                  <tr>
-                    <td>Misc</td>
-                    <td>Dillo 0.8</td>
-                    <td>Embedded devices</td>
-                    <td>-</td>
-                    <td>X</td>
-                  </tr>
-                  <tr>
-                    <td>Misc</td>
-                    <td>Links</td>
-                    <td>Text only</td>
-                    <td>-</td>
-                    <td>X</td>
-                  </tr>
-                  <tr>
-                    <td>Misc</td>
-                    <td>Lynx</td>
-                    <td>Text only</td>
-                    <td>-</td>
-                    <td>X</td>
-                  </tr>
-                  <tr>
-                    <td>Misc</td>
-                    <td>IE Mobile</td>
-                    <td>Windows Mobile 6</td>
-                    <td>-</td>
-                    <td>C</td>
-                  </tr>
-                  <tr>
-                    <td>Misc</td>
-                    <td>PSP browser</td>
-                    <td>PSP</td>
-                    <td>-</td>
-                    <td>C</td>
-                  </tr>
-                  <tr>
-                    <td>Other browsers</td>
-                    <td>All others</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>U</td>
-                  </tr>
+                  		
+			       
+			            
                   </tbody>
-                  <tfoot>
-                  <tr>
-                    <th>Rendering engine</th>
-                    <th>Browser</th>
-                    <th>Platform(s)</th>
-                    <th>Engine version</th>
-                    <th>CSS grade</th>
-                  </tr>
-                  </tfoot>
                 </table>
               </div>
             </div>
@@ -450,26 +74,230 @@
                     
 </div>
 
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit User</h4>
+        </div>
+        <div class="modal-body">
+	    <div class="form-group">
+		  <label for="usr">Name:</label>
+		  <input type="hidden" class="form-control" id="hiddenid" name="hiddenid">
+		  <input type="text" class="form-control" id="name" name="name">
+		</div>
+		 <div class="form-group">
+		  <label for="usr">Email:</label>
+		  <input type="text" class="form-control" id="email" name="email">
+		</div>
+		<div class="form-group">
+		  <label for="usr">DOB:</label>
+		  <input type="date" class="form-control" id="dob" name="dob">
+		</div>
+		<div class="form-group">
+		  <label for="usr">Phone:</label>
+		  <input type="text" class="form-control" onkeypress="return isNumberKey(event)"  id="phone" name="phone">
+		</div>
+		<div class="form-group">
+		  <label for="usr">City:</label>
+		  <input type="text" class="form-control" id="city" name="city">
+		</div>
+		<div class="form-group">
+		  <label for="usr">Amount:</label>
+		  <input type="text" class="form-control" onkeypress="return isNumberKey(event)" id="amount" name="amount">
+		</div>
+        </div>
+        <div class="modal-footer">
+        
+          <button type="button" class="btn btn-success updatebtn">Update</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 @endsection
 
 @section('footer')
 @parent
 @endsection
 
+@push('script')
 <script>
-  $(function () {
-    $("#example1").DataTable({
-      "responsive": true,
-      "autoWidth": false,
+$(document).ready(function(){
+
+  
+    $("#foralert").hide();
+    $("#foralert1").hide();
+  
+
+	userslist();   // page load to call first
+	$('.updatebtn').on('click',function(){ 
+		 var token = $("meta[name='csrf-token']").attr("content");
+		 
+		 var id=$('#hiddenid').val();
+		 var name=$('#name').val();
+		 var email=$('#email').val();
+		 var dob=$('#dob').val();
+		 var phone=$('#phone').val();
+		 var city=$('#city').val();
+		 var amount=$('#amount').val();
+		 
+    $.ajax({
+            type: 'post',
+            url: 'updateuser',
+            data: {
+            	'id':id,
+	            'name': name,
+	            'email': email,
+	            'dob': dob,
+	            'phone': phone,
+	            'city': city,
+	            'amount': amount,
+	             '_token': "{{ csrf_token() }}",
+            },
+            success: function (result) {
+				
+				 var obj = $.parseJSON(result);
+				  $('#myModal').modal('hide');
+
+                  location.reload();
+
+		          user_list()
+
+		          $("#sa").html("Updated succesfully!")
+				  $("#foralert1").show();
+            }
+        });
+	});
+	
+	
+	 $("#select-all").on("click", function() {  //  All checkbox check click
+        var all = $(this);
+         $('input:checkbox').each(function() {
+        $(this).prop("checked", all.prop("checked"));    //  All checkbox checked
+          });
+        });
+		
+		
+		$('.donerbtn').on('click',function(){
+			 var favorite = [];
+          $('.ads_Checkbox:checked').each(function() {   
+           favorite.push($(this).val());   // all checkbox value get
+            });
+			
+			if(favorite==''){      //  if no any checkbox check
+				$("#wa").html("Please select atleast one!")
+				$("#foralert").show();
+				//				$("#foralert").hide();
+				
+			}else{
+				var token = $("meta[name='csrf-token']").attr("content");
+				  $.ajax({
+			            type: 'post',
+			            url: '{{url("updatedonor")}}',
+			            data: {
+							'id':favorite,
+							"_token": "{{ csrf_token() }}",
+							},
+			            success: function (result) {
+							var obj = $.parseJSON(result);
+							 user_list()
+						  }
+				        });
+		   }
+		});
+
+});	
+
+function edituser(id){
+	 var token = $("meta[name='csrf-token']").attr("content");
+	  $.ajax({
+            type: 'get',
+            url: '{{url("edituser")}}',
+            data: {
+				'id':id,
+				'_token': token
+				},
+            success: function (result) {
+            	
+				var obj = $.parseJSON(result);
+				console.log(obj.user);
+				$('#hiddenid').val(obj.user.id);
+				$('#name').val(obj.user.name);
+				$('#email').val(obj.user.email);
+				$('#phone').val(obj.user.phone);
+				$('#dob').val(obj.user.dob);
+				$('#city').val(obj.user.city);
+				$('#amount').val(obj.user.amount);
+			}
+	  });
+}
+
+function userslist() {
+	$.ajax({
+            type: 'get',
+            url: '{{url("getusers")}}',
+            data: {_token: "{{ csrf_token() }}"},
+            success: function (result) {
+            	console.log(JSON.parse(result));
+			 	var obj = $.parseJSON(result);
+                 var t = $('#example1').DataTable();            
+                 t.clear().draw();                                      
+                 $.each(obj.users.data, function (key, value) {
+                 	console.log(key);
+                 	console.log(key);
+                 	console.log(obj.users.data);
+					  key = key + 1;
+					  action='<button class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal" onclick="edituser('+value.id+')">Edit</button>  <button class="btn btn-danger btn-xs" onclick="deleteuser('+value.id+')">Delete</button>';
+					  
+					  checkbox='<input type="checkbox" class="ads_Checkbox" name="chk_box" id="chk_box" value="'+value.id+'" style="height: 20px;width: 20px;">'
+					 
+					 if(value.status==0){
+						 status='Not confirmed Doner';
+					 }else{
+						 status='confirmed Donor';
+					 }
+					    t.row.add([                                   
+                                    checkbox,
+                                    key,
+                                    value.name,
+                                    value.email,
+                                    value.phone,
+                                    value.dob,
+                                    value.city,
+                                    value.amount,
+                                    status,
+									action,
+									   
+                                ]).draw(true); 
+			});
+            }
     });
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
+} 
+function deleteuser(id){
+	  $.ajax({
+            type: 'post',
+            url: '{{url("deleteuser")}}',
+            data: {
+				'id':id,
+				'_token': "{{ csrf_token() }}"
+				
+				},
+            success: function (result) {
+            	console.log(result);
+                location.reload();
+
+		         user_list()
+			}
+	  });	
+}
+/*window.setTimeout(function() {
+    $(".alert").fadeTo(500, 0).slideUp(500, function(){
+        $(this).remove(); 
     });
-  });
+}, 2000);*/
 </script>
+ @endpush
