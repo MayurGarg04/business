@@ -26,7 +26,7 @@ class UserController extends Controller
 
     public function index()
     {   
-        //$users = MasterUser::all();
+        
         return response()->json(['users' =>  MasterUser::where('isdelete', '=', 0)->simplePaginate(20), 'status' => true, 'code' => 200], 200);
         
     }

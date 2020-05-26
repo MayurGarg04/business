@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*Route::get('/', function () {
-    return view('register')->with('posts', 5);
-});*/
+
 Route::get('/', function () {
     return view('register');
 });

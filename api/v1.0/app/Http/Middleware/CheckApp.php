@@ -23,9 +23,7 @@ class CheckApp
 
     public function handle($request, Closure $next)
     {	
-        // return response()->json(['user' => $request->headers->get('appid')]);
-
-        //return response()->json(['message' => $request->get('appid')]);
+        
 
         $appid = $request->headers->get('appid');
 

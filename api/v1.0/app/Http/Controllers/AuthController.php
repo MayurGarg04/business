@@ -22,7 +22,7 @@ class AuthController extends Controller
         //validate incoming request 
         $this->validate($request, [
             'name' => 'required|string',
-            'email' => 'required|email|unique:master_user',
+            'email' => 'required|email',
             'dob' => 'required|date|before:18 years ago',
             'city' => 'required',
             'amount' => 'required|numeric',
@@ -51,7 +51,7 @@ class AuthController extends Controller
             $user = new MasterUser;
             $user->name = $request->input('name');
             $user->email = $request->input('email');
-            $user->dob = $request->input('dob');
+            $user->dob = date('Y-m-d', strtotime($request->input('dob')));
             $user->city = $request->input('city');
             $user->amount = $request->input('amount');
             $user->app_id = $request->headers->get('appid');
@@ -61,7 +61,7 @@ class AuthController extends Controller
             $user->save();
 
             //return successful response
-            return response()->json(['user' => $user, 'message' => 'Registration Completed successfully.','status' => true, 'code' => 201], 201);
+            return response()->json(['status' => 'success', 'HTTP_Status' => '201', 'code' => 'Registration_Success'], 201);
 
         } catch (\Exception $e) {
             //return error message

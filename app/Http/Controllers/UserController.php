@@ -77,7 +77,6 @@ class UserController extends Controller
                   ],
               ]);
 
-           // return $response->getBody()->getContents();
             $responseData = json_decode($response->getBody()->getContents());
 
             $accessToken = $responseData->token;
@@ -89,15 +88,6 @@ class UserController extends Controller
 
                 return redirect('users')->with('message', 'Login successfully!');
                
-                //return redirect()
-                //return response()->json(['message' => 'Login successfully!','status' => true, 'code' => 201], 201);
-                //$users = $this->getUsersByAppId($request); 
-
-                /*if($users) {
-                    return $users;
-                } else {
-                    return response()->json(['message' => 'No data found!','status' => true, 'code' => 201], 201);
-                }*/
             }    
             
     	}  catch (ClientException $e) {
@@ -130,10 +120,10 @@ class UserController extends Controller
         try {
             $response = $this->client->post(env('API_URL').'users', [
                   'form_params' => [
-                        'name' => 'priyaaa ali khan',
-                        'email' => 'priyaaa@ww.com',
+                        'name' => 'mayur',
+                        'email' => 'hello@ww.com',
                         'dob' => '1995-05-06',
-                        'city' => 'Noaaida',
+                        'city' => 'noida',
                         'amount' => '8411',
                         'appid' => 'paytm',
                         'phone' => '7512598524'
